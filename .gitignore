@@ -1,0 +1,24 @@
+*~	#ignore all files that end with tilde 
+backups
+
+.DS_Store
+
+
+*.class	# ignore class files
+.settings
+
+.factorypath
+bin
+
+gen
+.sh
+
+.settings
+
+
+.classpath
+
+
+.project
+config
+.apt_generated
