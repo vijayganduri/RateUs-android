@@ -6,7 +6,7 @@ import android.view.Menu;
 
 import com.vijayganduri.cybrilla.rateus.R;
 
-public class ServicesActivity extends Activity {
+public class AllServicesActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class ServicesActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.rate, menu);
+		getMenuInflater().inflate(R.menu.services, menu);
 		return true;
 	}
 

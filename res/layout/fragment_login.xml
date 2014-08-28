@@ -8,19 +8,19 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:src="@drawable/banner"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/banner" />
 
-    <ImageButton 
+    <ImageButton
         android:id="@+id/signinBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_assist_normal"
-        android:background="@android:color/transparent"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
-    
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_action_assist_normal" />
+
 </RelativeLayout>
