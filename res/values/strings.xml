@@ -8,4 +8,9 @@
     <string name="title_activity_rate">Rate</string>
     <string name="title_activity_services">Services</string>
 
+    <string name="warn_login_fail">Could not login. Please retry!!</string>
+    <string name="warn_fill_all">Please fill all fields</string>
+    
+    <string name="info_loading">Loading...</string>
+    
 </resources>
