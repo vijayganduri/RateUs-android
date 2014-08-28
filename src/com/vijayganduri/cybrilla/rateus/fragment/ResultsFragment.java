@@ -18,30 +18,31 @@ public class ResultsFragment extends SherlockFragment
 {
 
 	private MainApplication app;
-	
+
 	private VoteDao voteDao;
-	
+
 	private static final String TAG = ResultsFragment.class.getName();
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_results, container, false);
 	}
-	
+
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
 		app = (MainApplication)getActivity().getApplication();
 		voteDao = app.getVoteDao();
-		
+
 		List<Vote> votes = voteDao.getAllVotes();
-		for(Vote vote:votes){
-			Log.d(TAG, "vote "+vote);
+		if(votes!=null && votes.size()>0){
+			for(Vote vote:votes){
+				Log.d(TAG, "vote "+vote);
+			}
 		}
-		
 	}
-	
-	
+
+
 }

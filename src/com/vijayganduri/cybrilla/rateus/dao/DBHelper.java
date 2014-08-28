@@ -32,6 +32,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate( SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource ){
 		try {
 			TableUtils.createTable( connectionSource, User.class );
+			TableUtils.createTable( connectionSource, Vote.class );
 		} catch( SQLException e ) {
 			Log.e( TAG, "Can't create database", e);
 			throw new RuntimeException(e);
