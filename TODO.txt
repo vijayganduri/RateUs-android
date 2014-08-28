@@ -4,19 +4,19 @@ Develop a simple rating system in which users login with their Google account an
 
 
 ### TODO ###
-* Create a wireframe flow for the app
 * Setup google account signin
-* Create Base class
-* Write model classes if any
-* setup dao with ormlite
-* Develop all screens UI
-* wire it up
 * Add fluid transitions
 * Try landscape optimization
 * Optimize for Tablet
 
 
 ### DONE ###
+* Create a wireframe flow for the app
+* Write model classes if any
+* setup dao with ormlite
+* Develop all screens UI
+* wire it up
+* Create Base class
 * Setup project and Extend Application
 * Add crash reporting tool - Bugsense
 * Setup Actionbarsherlock
