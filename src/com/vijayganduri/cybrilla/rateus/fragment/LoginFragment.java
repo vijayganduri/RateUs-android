@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +30,10 @@ public class LoginFragment extends SherlockFragment
 	private ImageButton signinBtn;
 	private ProgressDialog mDialog;
 	
-	private MainApplication app;	
+	private MainApplication app;
 	private UserDao userDao;
+
+	private static final String TAG = LoginFragment.class.getName();
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,16 +59,38 @@ public class LoginFragment extends SherlockFragment
 	}
 	
 	private void startSignin(){
-		//TODO setup google + auth
-		showDialog(getText(R.string.info_loading).toString());
-		onLoginSuccess();
+		//TODO setup google + auth		
+		new RegisterUserAsyncTask().execute();
+	}
+	
+
+	private class RegisterUserAsyncTask extends AsyncTask<Void, Void, User>{
+
+		@Override
+		protected void onPreExecute() {
+			showDialog(getText(R.string.info_signing));
+			super.onPreExecute();
+		}
+
+		@Override
+		protected User doInBackground(Void... params) {
+			//After successful Google + signin need to save it to db			
+			return onLoginSuccess();
+		}
+
+		@Override
+		protected void onPostExecute(User user){			
+			invokeForVoting(user);
+			super.onPostExecute(user);
+		}
+
 	}
 	
 	/*
 	 * Will be invoked after Google plus signin is successful
-	 * Store the user to internal db and proceed for voting	 
+	 * Store the user to internal db
 	 */
-	private void onLoginSuccess(){
+	private User onLoginSuccess(){
 		
 		User user = new User();
 		user.setEmail("xyz");//TODO Fill with exact content
@@ -79,10 +104,9 @@ public class LoginFragment extends SherlockFragment
 		} catch (SQLException e) {
 			e.printStackTrace();
 			showToast(getString(R.string.warn_login_fail));
-			return;
+			return null;
 		}
-		
-		invokeForVoting(user);
+		return user;
 	}
 	
 	private void onLoginFailed(){
@@ -104,7 +128,7 @@ public class LoginFragment extends SherlockFragment
 		Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
 	}
 	
-	private void showDialog(String msg){
+	private void showDialog(CharSequence msg){
 		cancelDialog();
 		mDialog = new ProgressDialog(getActivity());
 		mDialog.setMessage(msg);

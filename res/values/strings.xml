@@ -20,6 +20,7 @@
     <string name="warn_fill_all">Please fill all fields</string>
 	<string name="exit_vote">Exit</string>
     
+	<string name="info_signing">Signing in...</string>
     <string name="info_loading">Loading...</string>
     <string name="info_submit">Submitting</string>
     <string name="info_thanks_voting">Thanks for providing your feedback!! Your feedback is successfully submitted</string>

@@ -4,7 +4,7 @@ Develop a simple rating system in which users login with their Google account an
 
 
 ### TODO ###
-* Setup google account signin
+* Setup google + account signin
 * Add fluid transitions
 * Try landscape optimization
 * Optimize for Tablet
