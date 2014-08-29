@@ -7,7 +7,7 @@ import com.vijayganduri.cybrilla.rateus.dao.VoteDao;
 @DatabaseTable(tableName = "vote", daoClass = VoteDao.class)
 public class Vote{
 
-	@DatabaseField(unique = true, id = true)
+	@DatabaseField(unique = true, generatedId = true)
 	private long id;
 
 	@DatabaseField
@@ -18,9 +18,20 @@ public class Vote{
 	
 	@DatabaseField
 	private int rating;
+	
+	@DatabaseField
+	private String additionalInfo;
 
 	@DatabaseField
-	private String updatedAt;
+	private long updatedAt;
+	
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
 
 	public long getId() {
 		return id;
@@ -54,19 +65,19 @@ public class Vote{
 		this.rating = rating;
 	}
 
-	public String getUpdatedAt() {
+	public long getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public void setUpdatedAt(long updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
 	@Override
 	public String toString() {
 		return "Vote [id=" + id + ", userid=" + userid + ", serviceType="
-				+ serviceType + ", rating=" + rating + ", updatedAt="
-				+ updatedAt + "]";
+				+ serviceType + ", rating=" + rating + ", additionalInfo="
+				+ additionalInfo + ", updatedAt=" + updatedAt + "]";
 	}
 
 }

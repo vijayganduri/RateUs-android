@@ -86,12 +86,15 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
 	public void clearAllVotes(){
 		try{
-			TableUtils.clearTable(getConnectionSource(), User.class);
+			TableUtils.clearTable(getConnectionSource(), Vote.class);
 		}catch( SQLException e ){
 			Log.e( TAG, "Can't clear table vote", e );
 			throw new RuntimeException(e);
 		}
 	}   
+	
+	
+	
 	@Override
 	public void close() {
 		super.close();

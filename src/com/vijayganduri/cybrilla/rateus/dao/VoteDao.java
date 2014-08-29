@@ -69,5 +69,13 @@ public class VoteDao extends BaseDaoImpl<Vote,String> {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * TODO Do a clean up here and remove previous year's votes if it exists
+     */
+    private void removeOldVotes(){
+    	
+    }
     
 }

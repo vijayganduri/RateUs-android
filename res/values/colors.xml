@@ -6,6 +6,31 @@
     <color name="circle_page_color">#dccd88</color>
     <color name="circle_fill_color">#ffffff</color>
     
+    <color name="results_title_color">#ffffff</color>
+    
     <color name="list_item_color">#88000000</color>
+    
+    <color name="main_title_color">#88000000</color>
+    <color name="seekbar_rating_color">#88000000</color>
+    
+    <color name="results_top_banner">#0079ea</color>
+    <color name="results_ytd_color">#ffffff</color>
+    <color name="results_mtd_color">#ffffff</color>
+    
+    <color name="results_rows_text">#cc000000</color>
+    <color name="results_service1">#f5fafa</color>
+    <color name="results_service2">#e9f4fa</color>
+    
+    <color name="results_mtd1">#bfe5fb</color>
+    <color name="results_mtd2">#afdbf6</color>
+    
+    <color name="results_ytd1">#80cbf8</color>
+    <color name="results_ytd2">#75c2f3</color>
+    
+    <color name="services_circle_normal">#aaaaaa</color>
+    <color name="services_circle_activated">#880198f1</color>
+    
+    <color name="services_rate_text">#ffffff</color>
+    
     
 </resources>

@@ -8,8 +8,9 @@ public class AppConstants {
     
     public static final String INTENT_USER_ID = "com.vijayganduri.cybrilla.user.id";
     public static final String INTENT_VOTE_ID = "com.vijayganduri.cybrilla.vote.id";
-    public static final String INTENT_RATING_SERVICE_ID = "com.vijayganduri.cybrilla.rating.service.id";
-    public static final String INTENT_RATING_SERVICE_TYPE = "com.vijayganduri.cybrilla.rating.service.type";
+    public static final String INTENT_RATING_SERVICE_INFO = "com.vijayganduri.cybrilla.rating.service.info";
+    
+    public static final String INTENT_SHOW_RESULTS = "com.vijayganduri.cybrilla.show.results";
     
     
 }

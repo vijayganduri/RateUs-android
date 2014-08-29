@@ -3,22 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:padding="10dp" >
-
+    
     <TextView
         android:id="@+id/item_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/service_rating_bg"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:singleLine="true"
-        android:paddingRight="10dp"      
         android:text="0"
-        android:textColor="@color/list_item_color"
-        android:textAppearance="@android:style/TextAppearance.Large"/>
-
+        android:textStyle="bold"
+        android:textColor="@color/services_rate_text"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/item_title"
@@ -26,9 +29,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:singleLine="true"        
+        android:singleLine="true"
         android:text="Product A"
-        android:textColor="@color/list_item_color"
-        android:textAppearance="@android:style/TextAppearance.Large"/>
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/list_item_color" />
 
 </LinearLayout>

@@ -7,10 +7,23 @@
     <string name="action_done">Done</string>
     <string name="title_activity_rate">Rate</string>
     <string name="title_activity_services">Services</string>
+    <string name="exit_vote_msg">Do you wish to exit the voting process?</string>
+    
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    
+    <string name="results">Results</string>
+    <string name="results_ytd">YTD</string>
+	<string name="results_mtd">MTD</string>
 
     <string name="warn_login_fail">Could not login. Please retry!!</string>
     <string name="warn_fill_all">Please fill all fields</string>
+	<string name="exit_vote">Exit</string>
     
     <string name="info_loading">Loading...</string>
+    <string name="info_submit">Submitting</string>
+    <string name="info_thanks_voting">Thanks for providing your feedback!! Your feedback is successfully submitted</string>
+    
+    <string name="hint_enter_comments">Type your feedback</string>
     
 </resources>

@@ -11,9 +11,13 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.viewpagerindicator.CirclePageIndicator;
+import com.vijayganduri.cybrilla.rateus.AppConstants;
 import com.vijayganduri.cybrilla.rateus.R;
 import com.vijayganduri.cybrilla.rateus.fragment.LoginFragment;
 import com.vijayganduri.cybrilla.rateus.fragment.ResultsFragment;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class DashboardActivity extends SherlockFragmentActivity {
 
@@ -25,7 +29,7 @@ public class DashboardActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard);
-
+		
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mIndicator = (CirclePageIndicator) findViewById(R.id.circle_indicator);
 		
@@ -41,6 +45,11 @@ public class DashboardActivity extends SherlockFragmentActivity {
 		final float density = getResources().getDisplayMetrics().density;
 		mIndicator.setRadius(5 * density);
 
+		if(getIntent()!=null && getIntent().getExtras()!=null && 
+				getIntent().getExtras().getBoolean(AppConstants.INTENT_SHOW_RESULTS, false)){
+			mPager.setCurrentItem(1, true);
+			Crouton.makeText(this, R.string.info_thanks_voting, Style.CONFIRM).show();
+		}
 	}
 
 	public class FragmentAdapter extends FragmentPagerAdapter {

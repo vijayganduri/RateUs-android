@@ -11,7 +11,14 @@ public class Rating implements Serializable{
 	
 	private String serviceType;	
 	private int rating;
+	private String additionalInfo;
 	
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
 	public String getServiceType() {
 		return serviceType;
 	}
@@ -24,11 +31,10 @@ public class Rating implements Serializable{
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	
 	@Override
 	public String toString() {
 		return "Rating [serviceType=" + serviceType + ", rating=" + rating
-				+ "]";
+				+ ", additionalInfo=" + additionalInfo + "]";
 	}
 	
 }

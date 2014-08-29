@@ -3,8 +3,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    android:padding="40dp" >
+    android:padding="25dp" >
 
-    <!-- TODO show tableview here -->
-    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="@string/results"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/results_title_color" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_centerHorizontal="true"
+        android:fadeScrollbars="false"
+        android:paddingTop="20dp"
+        android:scrollbars="none" >
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="13dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:textColor="@color/results_ytd_color"
+                    android:background="@color/results_top_banner" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="13dp"
+                    android:singleLine="true"
+                    android:text="@string/results_mtd"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:textColor="@color/results_mtd_color"
+                    android:background="@color/results_top_banner"  />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="13dp"
+                    android:singleLine="true"
+                    android:text="@string/results_ytd"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:textColor="@color/results_ytd_color"
+                    android:background="@color/results_top_banner"  />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
 </RelativeLayout>

@@ -1,12 +1,18 @@
 package com.vijayganduri.cybrilla.rateus.activity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +47,8 @@ public class AllServicesActivity extends SherlockActivity implements OnItemClick
 	private ProgressDialog mDialog;
 
 	static final int REQUEST_RATING = 1;
+
+	private static final String TAG = AllServicesActivity.class.getName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +87,7 @@ public class AllServicesActivity extends SherlockActivity implements OnItemClick
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent intent = new Intent(this, RateActivity.class);
-		intent.putExtra(AppConstants.INTENT_RATING_SERVICE_ID, ratings.get(position).getRating());
-		intent.putExtra(AppConstants.INTENT_RATING_SERVICE_TYPE, ratings.get(position).getServiceType());
+		intent.putExtra(AppConstants.INTENT_RATING_SERVICE_INFO, ratings.get(position));
 		startActivityForResult(intent, REQUEST_RATING);
 	}
 
@@ -89,17 +96,59 @@ public class AllServicesActivity extends SherlockActivity implements OnItemClick
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode == REQUEST_RATING){
 			if(resultCode== RESULT_OK){
-
+				if(data!=null){
+					Rating rating = (Rating)data.getSerializableExtra(AppConstants.INTENT_RATING_SERVICE_INFO);
+					if(rating!=null){
+						updateItem(rating);
+					}
+				}
 			}
 		}
 	}
-	
+
+	private void updateItem(Rating updateRating){
+		for(Rating rating:ratings){
+			if(rating.getServiceType().equalsIgnoreCase(updateRating.getServiceType())){
+				rating.setAdditionalInfo(updateRating.getAdditionalInfo());
+				rating.setRating(updateRating.getRating());
+				break;
+			}
+		}
+		//To update the specific single row
+		int start = listView.getFirstVisiblePosition();
+		for(int i=start, j=listView.getLastVisiblePosition();i<=j;i++){
+			Rating rating = (Rating)listView.getItemAtPosition(i);
+			if(updateRating.getServiceType().equals(rating.getServiceType())){
+				View view = listView.getChildAt(i-start);
+				listView.getAdapter().getView(i, view, listView);
+				break;
+			}
+		}
+	}
+
+	/**
+	 *  We don't store user session details until he votes. 
+	 *  Just clear the session details on exiting the screen
+	 */
 	@Override
 	public void onBackPressed() {
-		
-		//TODO clear session and exit
-		super.onBackPressed();
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setMessage(R.string.exit_vote_msg)
+		.setTitle(R.string.exit_vote);
+		alert.setPositiveButton(R.string.yes, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				clearSessionAndExit(false);
+			}
+		});
+		alert.setNegativeButton(R.string.cancel, null);
+		alert.show();
+
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,20 +168,58 @@ public class AllServicesActivity extends SherlockActivity implements OnItemClick
 	private void submit(){
 		//Need to fill all before submitting
 		if(!areAllFieldsFilled()){
-			showToast(getText(R.string.warn_fill_all));			
+			showToast(getText(R.string.warn_fill_all));
+			return;
 		}
-		
-		String updatedAt = String.valueOf(System.currentTimeMillis());
-		for(Rating rating : ratings){
-			Vote vote = new Vote();
-			vote.setUserid(userid);
-			vote.setUpdatedAt(updatedAt);
-			vote.setServiceType(rating.getServiceType());
-			vote.setRating(rating.getRating());
-			voteDao.createOrUpdate(vote);
+		new SaveAsyncTask().execute();
+	}
+
+	private class SaveAsyncTask extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected void onPreExecute() {
+			showDialog(getText(R.string.info_submit));
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {		
+			long updatedAt = System.currentTimeMillis();
+			for(Rating rating : ratings){
+				Vote vote = new Vote();
+				vote.setUserid(userid);
+				vote.setUpdatedAt(updatedAt);
+				vote.setServiceType(rating.getServiceType());
+				vote.setRating(rating.getRating());
+				vote.setAdditionalInfo(rating.getAdditionalInfo());
+				try {
+					voteDao.create(vote);
+				} catch (SQLException e) {
+					Log.e(TAG, "Could not write to db "+e);
+				}
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result){
+			clearSessionAndExit(true);
+			super.onPostExecute(result);
+		}
+
+	}
+
+	private void clearSessionAndExit(boolean redirectResults){
+		cancelDialog();
+		finish();
+		if(redirectResults){
+			Intent intent = new Intent(this, DashboardActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.putExtra(AppConstants.INTENT_SHOW_RESULTS, true);
+			startActivity(intent);
 		}
 	}
-	
+
 	private boolean areAllFieldsFilled(){
 		for(Rating rating :ratings){
 			if(rating.getRating()==0){
@@ -182,6 +269,11 @@ public class AllServicesActivity extends SherlockActivity implements OnItemClick
 
 			holder.itemRating.setText(Integer.toString(item.getRating()));
 			holder.itemTitle.setText(item.getServiceType());
+			if(item.getRating()==0){
+				holder.itemRating.setSelected(false);
+			}else{
+				holder.itemRating.setSelected(true);
+			}
 
 			return convertView;
 		}
@@ -197,15 +289,15 @@ public class AllServicesActivity extends SherlockActivity implements OnItemClick
 	private void showToast(CharSequence msg){
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
-	
-	private void showDialog(String msg){
+
+	private void showDialog(CharSequence msg){
 		cancelDialog();
 		mDialog = new ProgressDialog(this);
 		mDialog.setMessage(msg);
 		mDialog.setCancelable(true);
 		mDialog.show();
 	}
-	
+
 	private void cancelDialog(){
 		if(mDialog!=null && mDialog.isShowing()){
 			mDialog.cancel();
